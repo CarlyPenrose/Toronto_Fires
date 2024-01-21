@@ -73,8 +73,53 @@ tail(cleaned_fire_data)
 head(cleaned_fire_data)
 tail(cleaned_fire_data)
 
+#### running my up tests for the fire data ####
+cleaned_fire_data$ward |> min() == 1
+cleaned_fire_data$ward |> max() == 25
+cleaned_fire_data$year |> min() == 2018
+cleaned_fire_data$year |> max() == 2022
+cleaned_fire_data$civilian_casualties |> min() == 0
+cleaned_fire_data$civilian_casualties |> class() == "integer"
+
+#data didn't pass the tests, looked found that there is pre-2018 data buried
+#in the dataset, so I have to go in and refine so the data only includes 2018
+#data and later. This should also solve the ward numbering issue because pre-2018
+#wards had a different numbering system
+
+#refining the data to years 2018 and later 
+cleaned_fire_data <-
+  filter(cleaned_fire_data, year >= 2018)
+
+#re-check the tests to see if the filter worked 
+cleaned_fire_data$ward |> min() == 1
+cleaned_fire_data$ward |> max() == 25
+cleaned_fire_data$year |> min() == 2018
+cleaned_fire_data$year |> max() == 2022
+cleaned_fire_data$civilian_casualties |> min() == 0
+cleaned_fire_data$civilian_casualties |> class() == "numeric"
+
+#noticed the the minimum for the ward number still isn't 1. Opened the csv, found
+#there are five instances where the ward number is 0, or is not filled in. 
+#for the purposes of this project, I will exclude these instances, but in most 
+#situations I would call the data provider to discuss what may have happened and
+#to use that to decide how to treat this information.
+
+#refining the data so that the ward number is 1 or greater.
+cleaned_fire_data <-
+  filter(cleaned_fire_data, ward >= 1)
+
+#running the tests one final time
+#re-check the tests to see if the filter worked 
+cleaned_fire_data$ward |> min() == 1
+cleaned_fire_data$ward |> max() == 25
+cleaned_fire_data$year |> min() == 2018
+cleaned_fire_data$year |> max() == 2022
+cleaned_fire_data$civilian_casualties |> min() == 0
+cleaned_fire_data$civilian_casualties |> class() == "numeric"
+
+
 #save the cleaned data as a new file
 write_csv(
   x = cleaned_fire_data,
-  file = "cleaned_fire_data.csv"
+  file = "cleaned_fire_data1.csv"
 )
