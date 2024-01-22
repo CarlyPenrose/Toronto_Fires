@@ -123,3 +123,5 @@ write_csv(
   x = cleaned_fire_data,
   file = "cleaned_fire_data1.csv"
 )
+
+
