@@ -1,10 +1,59 @@
 ---
-title: "Toronto_Fire_Response"
+title: "Civilian Casualties from Fires Greatest in Toronto's Most Densely Populated Wards ^[Code and data is available at: github.com/CarlyPenrose/Toronto_Fires]"
 author: "Carly Penrose"
+date: "23 January 2024"
+abstract: "This is my abstract."
 format: pdf
+output:
+  bookdown::pdf_document2:
+    toc: false
+    number_sections: false
+  fig_caption: yes
+  extra_dependencies: ["float"]
+urlcolor: blue
 ---
 
 ```{r}
 
 ```
 
+## Introduction
+
+Each year, _____ people in Canada die in a house fire and ____ are displaced. Quick response time and ____ are vital to save live and property. Annual damage to due fires can reach up to _____, according to the Insurance Bureau of Canada. The faster the response to a fire, the more likely devastating loss will be avoided.
+ 
+The Toronto Fire Service (TFS) is one of the largest emergency response fire departments in North America. It has 85 fire stations, ______ active employees and ____ volunteers. It serves a population of ______ people in the City of Toronto across 25 wards.  In this paper I will explore the relationship between TFS response time to a fire incident and civilian casualties from a fire. 
+
+I used fire indicdent data from 2018 to Decebmer 2022 provided by the Toronto Fire Marshal and published on OpenData Toronto to determine response time for each fire event and whether response time was related to civilian casualties for fires. My findings suggest that a longer response time was positively associated with more deaths from fires in Toronto. 
+
+I also investigated in which wards response times were the longest and civilian deaths were the highest to provide opportunities for future research into possible links between the average income of a ward, the density of the ward's population or other demographic characteristics and fire response times. 
+
+
+## Data 
+Data used are from Open Data Toronto Portal through the library `opendatatoronto` [@rOpenDataToronto]. Data were cleaned and analyzed using the open source statistical programming language R [@r]. Libraries `tidyverse` [@rTidyverse], `janitor` [@rJanitor], `knitr` [@rKnitr] `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], and `tibble` [@rTibble] were used for simulating, cleaning, running tests and creating graphics for the project.
+
+### Fire Incidents data 
+Fire Incidents data are provided by the City of Toronto Fire Marshall and are updated on OpenData Toronto on an annual basis. The most recent data are from December 2022. The dataset tracks all fire incidents for which TFS was alerted, starting in 2011. 
+
+The dataset includes more than 70,000 fire incidents over 11 years. It tracks the date of the incident, the location to the nearest intersection as well as the ward in which the incident took place, the time that TFS was alerted to the fire and the time that TFS arrived at the scene. It also records civilian casualties, TFS casualties, property lost (in dollars) and incident type. 
+
+Data was isolated for 2018 through 2022, because the City of Toronto switched from a 44-ward model to a 25 ward model in 2018, and ward information recorded prior to 2018 would not match more recent data.
+
+The response time variable used in the correlational test was calculated by finding the difference between the TFS Alarm time and the TFS arrival time. The resulting column, "TFS_response_time" was used for the analysis.
+
+## Results
+
+### Fire incidents by ward 
+
+insert graph here
+insert graph of casualties by ward
+
+### Fire incidents by year 
+
+insert graph here
+insert graph of casualties per year 
+
+### TFS response time and casualties 
+
+[insert table here]
+
+## References
