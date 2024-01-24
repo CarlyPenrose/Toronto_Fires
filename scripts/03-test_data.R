@@ -87,20 +87,6 @@ ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
        y = "Total civilian casualties") +
   theme_minimal() 
 
-# create a new dataset by merging the median income data with the ward data 
-#code inspired by Christina Wei's example paper, and helped fine tune with chatgpt
-merged_ward_fires <- merge(sum_per_ward, cleaned_Ward_median_income, by = "ward", all = TRUE)
-
-# Print the merged dataset
-print(merged_ward_fires)
-
-#changing ward to a categorical variable
-merged_ward_fires <- merged_ward_fires %>%
-  mutate(
-   ward = as.factor(ward))
-   
-print(merged_ward_fires)
-
 # create a scatterplot comparing the number of civilian casualties per ward to the median income per ward
 #code adapted from Telling Stories with Data chapter 5
 merged_ward_fires |>
