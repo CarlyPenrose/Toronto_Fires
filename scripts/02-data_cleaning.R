@@ -102,6 +102,19 @@ cleaned_Ward_median_income <- cleaned_Ward_median_income %>%
 
 cleaned_Ward_median_income
 
+#merge the two files for median income and 
+# create a new dataset by merging the median income data with the ward data 
+#code inspired by Christina Wei's example paper, and helped fine tune with chatgpt
+merged_ward_fires <- merge(sum_per_ward, cleaned_Ward_median_income, by = "ward", all = TRUE)
 
-#merge the fires dataset with 
+# Print the merged dataset
+print(merged_ward_fires)
+
+#changing ward to a categorical variable deaths per ward
+
+merged_ward_fires <- merged_ward_fires %>%
+  mutate(
+    ward = as.factor(ward))
+
+print(merged_ward_fires)
 
