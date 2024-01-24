@@ -16,8 +16,9 @@ library("janitor")
 library("knitr")
 library("lubridate")
 library("opendatatoronto")
+library("dplyr")
 
-#### Acquire the data ####
+#### Acquire the fire incident data ####
 toronto_fires <-
   
 # get all resources for this package
@@ -34,3 +35,12 @@ write_csv(
 
 head(toronto_fires)
 
+#### Acquire the data for ward profiles to isolate income ####
+
+#used code from https://arbor-analytics.com/post/getting-your-data-into-r-from-google-sheets/ to help me include the code from the ward profiles#
+install.packages("googlesheets4")
+library(googlesheets4)
+
+Ward_median_income <- read_sheet("https://docs.google.com/spreadsheets/d/1GhXf26tWdIasxY-KDeeGfmWv3EPXFACMI8gRtYWI1e8/edit?usp=sharing")
+
+Ward_median_income

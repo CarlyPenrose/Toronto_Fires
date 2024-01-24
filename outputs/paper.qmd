@@ -1,8 +1,8 @@
 ---
-title: "Civilian Casualties from Fires Greatest in Toronto's Most Densely Populated Wards ^[Code and data is available at: github.com/CarlyPenrose/Toronto_Fires]"
+title: "Civilian Casualties from Fires not Linked to Low Income in Toronto Wards ^[Code and data is available at: github.com/CarlyPenrose/Toronto_Fires]"
 author: "Carly Penrose"
 date: "23 January 2024"
-abstract: "This is my abstract."
+abstract: "Fires in Toronto "
 format: pdf
 output:
   bookdown::pdf_document2:
@@ -13,47 +13,78 @@ output:
 urlcolor: blue
 ---
 
-```{r}
-
-```
-
 ## Introduction
 
-Each year, _____ people in Canada die in a house fire and ____ are displaced. Quick response time and ____ are vital to save live and property. Annual damage to due fires can reach up to _____, according to the Insurance Bureau of Canada. The faster the response to a fire, the more likely devastating loss will be avoided.
- 
-The Toronto Fire Service (TFS) is one of the largest emergency response fire departments in North America. It has 85 fire stations, ______ active employees and ____ volunteers. It serves a population of ______ people in the City of Toronto across 25 wards.  In this paper I will explore the relationship between TFS response time to a fire incident and civilian casualties from a fire. 
+In 2021, 166 people in Canada died in a structure fire and 873 were injured, according to [Statistics Canada](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3510019501&pickMembers%5B0%5D=1.1&pickMembers%5B1%5D=2.2&pickMembers%5B2%5D=3.1&pickMembers%5B3%5D=4.1&cubeTimeFrame.startYear=2017&cubeTimeFrame.endYear=2021&referencePeriods=20170101%2C20210101) data. Each year, many more are displaced. [News](https://www.thespec.com/news/hamilton-region/when-fire-meets-poverty-the-economics-of-fire/article_28c2acd7-2101-5579-b9cd-82b5368a09af.html) reports out of Hamilton, Ontario have reported that fires don't affect all equally. Fires are more severe and more deadly in low income areas of Hamilton compared to affluent suburban areas. Research out of the United Kingdom has also found various sociodemographic factors of [disadvantage](https://webarchive.nationalarchives.gov.uk/ukgwa/20120919141831/http://www.communities.gov.uk/publications/fire/frsperformanceanalysis) are linked to the destructiveness and deadliness of fires.
 
-I used fire indicdent data from 2018 to Decebmer 2022 provided by the Toronto Fire Marshal and published on OpenData Toronto to determine response time for each fire event and whether response time was related to civilian casualties for fires. My findings suggest that a longer response time was positively associated with more deaths from fires in Toronto. 
+The Toronto Fire Service (TFS) is largest fire departments in Canada and the fifth-largest in [North America](https://www.toronto.ca/city-government/accountability-operations-customer-service/city-administration/staff-directory-divisions-and-customer-service/fire-services/). It has 85 fire stations, and serves a population of nearly 3 million people in the City of Toronto across 25 wards. TFS provides data about alarms in the city and the source, effects and response times. 
 
-I also investigated in which wards response times were the longest and civilian deaths were the highest to provide opportunities for future research into possible links between the average income of a ward, the density of the ward's population or other demographic characteristics and fire response times. 
+In this paper, I will explore the wards in which civilian casualties from fires were the greatest. I used fire incident data from 2018 to December 2022 provided by the Toronto Fire Marshal and published on OpenData Toronto to determine the wards where the most civilian deaths due to fires occurred. I also examined the average income of each ward according to the 25 ward profiles published by the City of Toronto. My findings suggest Toronto Centre (ward 13) was the deadliest ward for fires across the years of 2018-2022. Conversely, Scarborough North (ward 23) was the least deadly. This suggests there was no connection between income and number of civilian deaths from fires. The prevalence of fires in Toronto Centre may be explained by other factors including the density of the population.
 
+## Data
 
-## Data 
-Data used are from Open Data Toronto Portal through the library `opendatatoronto` [@rOpenDataToronto]. Data were cleaned and analyzed using the open source statistical programming language R [@r]. Libraries `tidyverse` [@rTidyverse], `janitor` [@rJanitor], `knitr` [@rKnitr] `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], and `tibble` [@rTibble] were used for simulating, cleaning, running tests and creating graphics for the project.
+Data used come from the Open Data Toronto Portal through the library `opendatatoronto` [@rOpenDataToronto]. Data were cleaned and analyzed using the open source statistical programming language R [@r]. Libraries `tidyverse` [@rTidyverse], `janitor` [@rJanitor], `knitr` [@rKnitr] `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], and `tibble` [@rTibble] were used for simulating, cleaning, running tests and creating graphics for the project.
 
-### Fire Incidents data 
-Fire Incidents data are provided by the City of Toronto Fire Marshall and are updated on OpenData Toronto on an annual basis. The most recent data are from December 2022. The dataset tracks all fire incidents for which TFS was alerted, starting in 2011. 
+### Fire Incidents data
 
-The dataset includes more than 70,000 fire incidents over 11 years. It tracks the date of the incident, the location to the nearest intersection as well as the ward in which the incident took place, the time that TFS was alerted to the fire and the time that TFS arrived at the scene. It also records civilian casualties, TFS casualties, property lost (in dollars) and incident type. 
+Fire Incidents data are provided by the City of Toronto Fire Marshall and are updated on OpenData Toronto on an annual basis. The most recent data are from December 2022. The dataset tracks all fire incidents for which TFS was alerted, starting in 2011.
+
+The dataset includes nearly 30,000 fire incidents over 11 years. It tracks the date of the incident, the location to the nearest intersection as well as the ward in which the incident took place, the time that TFS was alerted to the fire and the time that TFS arrived at the scene. It also records civilian casualties, TFS casualties, property lost (in dollars) and incident type.
 
 Data was isolated for 2018 through 2022, because the City of Toronto switched from a 44-ward model to a 25 ward model in 2018, and ward information recorded prior to 2018 would not match more recent data.
 
-The response time variable used in the correlational test was calculated by finding the difference between the TFS Alarm time and the TFS arrival time. The resulting column, "TFS_response_time" was used for the analysis.
+### Ward demographics
+
+The City of Toronto provides ward profiles for each of its 25 wards. This includes population, age, ethnic group, language spoken and median income. The data for median income of each ward was collected from ward profiles based on the 2021 census and compiled into a single dataset. This data was then merged with the fire dataset to allow for comparison.
 
 ## Results
 
-### Fire incidents by ward 
+### Fire incidents by year
 
-insert graph here
-insert graph of casualties by ward
+Of the years studied, the greatest number of individual fire incidents in Toronto were relatively constant. The year with the most fire incidents was in 2022, followed closely by 2020.
 
-### Fire incidents by year 
+```{r}
+cleaned_fire_data |>
+  ggplot(aes(x = year)) +
+  geom_bar() +
+  theme_minimal() + 
+  labs(title = "Number of fires in Toronto by year, 2018-2022",
+       x = "Year", y = "Number of fires")+
+```
 
-insert graph here
-insert graph of casualties per year 
+The greatest number of civilian deaths from fires in Toronto happened in 2018 followed closely by 2019.
 
-### TFS response time and casualties 
+```{r}
+ggplot(sum_per_year, aes(x = factor(year), y = deaths)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total civilian casualties in fire incidents by year",
+       x = "Year",
+       y = "Total Civilian Casualties") +
+  theme_minimal()
+```
 
-[insert table here]
+### Fire incidents by ward
+
+The ward which had the greatest number of unique fire incidents from 2018 to 2022 was ward 13, Toronto Centre, with the fewest in Scarbourough North, ward 23.
+
+```{r}
+cleaned_fire_data |>
+  ggplot(aes(x = ward)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() + # Make the theme neater
+  labs(title = "Number of fire incidents per ward, 2018-2022", 
+       x = "Ward", y = "Number of fires") 
+```
+
+The ward in which the most civilian casualties due to fires took place was ward 13, Toronto Centre. The ward with the fewest civilian casualties due to fires was ward 23, Scarborough North.
+
+```{r}
+ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total civilian casualties in fire incidents by ward, 2018-2022",
+       x = "Ward",
+       y = "Total civilian casualties") +
+  theme_minimal() 
+```
 
 ## References

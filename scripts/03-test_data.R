@@ -9,19 +9,16 @@
 #### Read in the data ####
 cleaned_fire_data <-
   read_csv(
-    file = "cleaned_fire_data.csv",
+    file = "cleaned_fire_data1.csv",
     show_col_types = FALSE
   )
 
 head(cleaned_fire_data)
-
-#running the tests
-cleaned_fire_data$ward |> min() == 1
-cleaned_fire_data$ward |> max() == 25
-cleaned_fire_data$year |> min() == 2018
-cleaned_fire_data$year |> max() == 2022
-cleaned_fire_data$civilian_casualties |> min() == 0
-cleaned_fire_data$civilian_casualties |> class() == "numeric"
+library("janitor")
+library("knitr")
+library("lubridate")
+library("opendatatoronto")
+library("tidyverse")
 
 #counting how many fire incidents happened per year
 cleaned_fire_data |>
@@ -35,7 +32,13 @@ print(
 
 # Calculate the sum of civilian casualties per year
 sum_per_year <- cleaned_fire_data |> group_by(year) |> 
-  summarize(total_casualties = sum(civilian_casualties))
+  summarize(deaths = sum(deaths))
+
+death_count_per_year <- cleaned_fire_data %>%
+  group_by(year) %>%
+  summarize(total_deaths = sum(deaths, na.rm = TRUE))
+
+death_count_per_year
 
 # Display the result
 print(sum_per_year)
@@ -43,7 +46,7 @@ print(sum_per_year)
 # Calculate the sum of civilian casualties in each ward
 print(
   sum_per_ward <- cleaned_fire_data |> group_by(ward) |> 
-    summarize(total_casualties = sum(civilian_casualties)),
+    summarize(total_casualties = sum(deaths)),
   n=25)
 
 head(sum_per_ward)
@@ -51,31 +54,49 @@ head(sum_per_ward)
 #create a graph of the number of fire incidents per ward 
 
 cleaned_fire_data |>
-  ggplot(aes(x = ward)) + # aes abbreviates "aesthetics" 
-  geom_bar()
-
-cleaned_fire_data |>
   ggplot(aes(x = ward)) +
-  geom_bar() +
+  geom_bar(stat = "identity") +
   theme_minimal() + # Make the theme neater
-  labs(x = "Ward", y = "Number of fires") # Make labels more meaningful
-
+  labs(title = "Number of fire incidents per ward, 2018-2022", 
+       x = "Ward", y = "Number of fires") 
 
 #create a graph of number of fire incidents per year 
 cleaned_fire_data |>
   ggplot(aes(x = year)) +
-  geom_bar()
-
-cleaned_fire_data |>
-  ggplot(aes(x = year)) +
   geom_bar() +
   theme_minimal() + 
-  labs(x = "Year", y = "Number of fires") 
+  labs(title = "Number of fires in Toronto by year, 2018-2022",
+       x = "Year", y = "Number of fires"
+       ) 
 
-#create a graph of the number of civilian deaths due to fires per ward 
+# create a graph of the number of civilian deaths due to fires per year 
+
+ggplot(sum_per_year, aes(x = factor(year), y = deaths)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total civilian casualties in fire incidents by year",
+       x = "Year",
+       y = "Total Civilian Casualties") +
+  theme_minimal()
+
+# create a graph of the number of civilian deaths due to fires per ward
+
+ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total civilian casualties in fire incidents by ward, 2018-2022",
+       x = "Ward",
+       y = "Total civilian casualties") +
+  theme_minimal() 
+
+# create a new dataset by merging the median income data with the ward data 
+Ward_median_income
 
 
+merged_ward_fires <- merge(cleaned_fire_data, Ward_median_income, by = "Ward", all = TRUE)
 
-#create a graph of the number of civilian deaths due to fires per year
+# Print the merged dataset
+print(merged_ward_fires)
+
+# create a scatterplot comparing the number of civilian casualties per ward to the median income per ward
+
 
 

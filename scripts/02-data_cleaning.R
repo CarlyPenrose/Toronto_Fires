@@ -27,42 +27,27 @@ cleaned_fire_data <-
 
 # checking any changes from the name cleaning
 head(cleaned_fire_data)
-
-# take a look
-head(cleaned_fire_data)
 tail(cleaned_fire_data)
 
-# Convert the fire_under_control_time column to a date object
-cleaned_fire_data$tfs_alarm_time <- as.Date(cleaned_fire_data$tfs_alarm_time)
-
-# Extract the year from the full_date column using lubridate
-cleaned_fire_data$year_only <- year(cleaned_fire_data$tfs_alarm_time)
-
-#see what just happened there
-head(cleaned_fire_data)
-
-# select the columns I want to focus on for my analysis, casualties, ward, and year
+#select the columns I want
 cleaned_fire_data <-
   cleaned_fire_data |>
-  select(
-    civilian_casualties,
-    incident_ward,
-    year_only
-  )
+  select(civilian_casualties, incident_ward, tfs_alarm_time)
 
-#look at the data  
 head(cleaned_fire_data)
-tail(cleaned_fire_data)
 
-#rename the columns 
-cleaned_fire_data <-
-  cleaned_fire_data |>
-  rename(
-    ward = incident_ward ,
-    year = year_only
-  )
+#remove all values after the first dash in the year
+#code taken from a combination of telling stories with data, 
+#https://stackoverflow.com/questions/71974098/how-to-remove-everything-after-a-space-in-a-column-of-an-r-data-frame 
+#and ChatGPT LLM to clean up errors in my code from combining the two methods
 
-#look again
+cleaned_fire_data <- cleaned_fire_data %>%
+  mutate(
+    tfs_alarm_time = str_remove(tfs_alarm_time, "-.*"),
+    tfs_alarm_time = as.integer(tfs_alarm_time)
+  ) %>%
+  rename(deaths = civilian_casualties, ward = incident_ward, year = tfs_alarm_time)
+
 head(cleaned_fire_data)
 tail(cleaned_fire_data)
 
@@ -73,19 +58,6 @@ tail(cleaned_fire_data)
 head(cleaned_fire_data)
 tail(cleaned_fire_data)
 
-#### running my up tests for the fire data ####
-cleaned_fire_data$ward |> min() == 1
-cleaned_fire_data$ward |> max() == 25
-cleaned_fire_data$year |> min() == 2018
-cleaned_fire_data$year |> max() == 2022
-cleaned_fire_data$civilian_casualties |> min() == 0
-cleaned_fire_data$civilian_casualties |> class() == "integer"
-
-#data didn't pass the tests, looked found that there is pre-2018 data buried
-#in the dataset, so I have to go in and refine so the data only includes 2018
-#data and later. This should also solve the ward numbering issue because pre-2018
-#wards had a different numbering system
-
 #refining the data to years 2018 and later 
 cleaned_fire_data <-
   filter(cleaned_fire_data, year >= 2018)
@@ -95,27 +67,12 @@ cleaned_fire_data$ward |> min() == 1
 cleaned_fire_data$ward |> max() == 25
 cleaned_fire_data$year |> min() == 2018
 cleaned_fire_data$year |> max() == 2022
-cleaned_fire_data$civilian_casualties |> min() == 0
-cleaned_fire_data$civilian_casualties |> class() == "numeric"
+cleaned_fire_data$deaths |> min() == 0
+cleaned_fire_data$deaths |> class() == "integer"
 
-#noticed the the minimum for the ward number still isn't 1. Opened the csv, found
-#there are five instances where the ward number is 0, or is not filled in. 
-#for the purposes of this project, I will exclude these instances, but in most 
-#situations I would call the data provider to discuss what may have happened and
-#to use that to decide how to treat this information.
-
-#refining the data so that the ward number is 1 or greater.
+#refining the data so that the ward number is 1 or greater to deal with empty data or N/A values.
 cleaned_fire_data <-
   filter(cleaned_fire_data, ward >= 1)
-
-#running the tests one final time
-#re-check the tests to see if the filter worked 
-cleaned_fire_data$ward |> min() == 1
-cleaned_fire_data$ward |> max() == 25
-cleaned_fire_data$year |> min() == 2018
-cleaned_fire_data$year |> max() == 2022
-cleaned_fire_data$civilian_casualties |> min() == 0
-cleaned_fire_data$civilian_casualties |> class() == "numeric"
 
 
 #save the cleaned data as a new file
