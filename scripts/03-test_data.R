@@ -102,7 +102,7 @@ merged_ward_fires <- merged_ward_fires %>%
 print(merged_ward_fires)
 
 # create a scatterplot comparing the number of civilian casualties per ward to the median income per ward
-#code taken from Telling Stories with Data chapter 5
+#code adapted from Telling Stories with Data chapter 5
 merged_ward_fires |>
   ggplot(mapping = aes(x = income, y = total_casualties, color = ward)) +
   geom_point()+
@@ -111,4 +111,5 @@ merged_ward_fires |>
        x = "Median income of ward in 2020",
        y = "Number of civilian deaths from fires per ward")+
   theme_minimal()
+
 
