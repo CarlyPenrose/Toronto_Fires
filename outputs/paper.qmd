@@ -75,7 +75,7 @@ The ward in which the most civilian casualties due to fires took place was ward 
 ```{r}
 ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
   geom_bar(stat = "identity") +
-  labs(title = "Total civilian casualties in fire incidents by ward, 2018-2022",
+  labs(title = "Total civilian casualties from fires by ward, 2018-2022",
        x = "Ward",
        y = "Total civilian casualties") +
   theme_minimal() 
@@ -105,13 +105,13 @@ This paper investigated the wards in which the most civilians died from structur
 
 R Core Team. 2023. *R: A Language and Environment for Statistical Computing*. Vienna, Austria: R Foundation for Statistical Computing. [https://www.R-project.org/](https://www.r-project.org/).
 
-Wickham, Hadley, Mara Averick, Jenny Bryan, Winston Chang, Lucy D\'Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. \"Welcome to the Tidyverse.\" *Journal of Open Source Software* 4 (43): 1686. <https://doi.org/10.21105/joss.01686>.
+Wickham, Hadley, Mara Averick, Jenny Bryan, Winston Chang, Lucy D'Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. "Welcome to the Tidyverse." *Journal of Open Source Software* 4 (43): 1686. <https://doi.org/10.21105/joss.01686>.
 
 Firke, Sam. 2023. *janitor: Simple Tools for Examining and Cleaning Dirty Data*. [https://CRAN.R-project.org/package=janitor](https://cran.r-project.org/package=janitor).
 
 Xie, Yihui. 2023. *knitr: A General-Purpose Package for Dynamic Report Generation in R*. <https://yihui.org/knitr/>.
 
-Grolemund, Garrett, and Hadley Wickham. 2011. \"Dates and Times Made Easy with lubridate.\" *Journal of Statistical Software* 40 (3): 1--25. <https://doi.org/10.18637/jss.v040.i03>.
+Grolemund, Garrett, and Hadley Wickham. 2011. "Dates and Times Made Easy with lubridate." *Journal of Statistical Software* 40 (3): 1--25. <https://doi.org/10.18637/jss.v040.i03>.
 
 Gelfand, Sharla. 2022. *opendatatoronto: Access the City of Toronto Open Data Portal*. [https://CRAN.R-project.org/package=opendatatoronto](https://cran.r-project.org/package=opendatatoronto).
 
