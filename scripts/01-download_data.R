@@ -43,4 +43,5 @@ library(googlesheets4)
 
 Ward_median_income <- read_sheet("https://docs.google.com/spreadsheets/d/1GhXf26tWdIasxY-KDeeGfmWv3EPXFACMI8gRtYWI1e8/edit?usp=sharing")
 
-Ward_median_income
+head(Ward_median_income)
+
