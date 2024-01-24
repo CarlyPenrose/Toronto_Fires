@@ -88,15 +88,27 @@ ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
   theme_minimal() 
 
 # create a new dataset by merging the median income data with the ward data 
-Ward_median_income
-
-
-merged_ward_fires <- merge(cleaned_fire_data, Ward_median_income, by = "Ward", all = TRUE)
+#code inspired by Christina Wei's example paper, and helped fine tune with chatgpt
+merged_ward_fires <- merge(sum_per_ward, cleaned_Ward_median_income, by = "ward", all = TRUE)
 
 # Print the merged dataset
 print(merged_ward_fires)
 
+#changing ward to a categorical variable
+merged_ward_fires <- merged_ward_fires %>%
+  mutate(
+   ward = as.factor(ward))
+   
+print(merged_ward_fires)
+
 # create a scatterplot comparing the number of civilian casualties per ward to the median income per ward
-
-
+#code taken from Telling Stories with Data chapter 5
+merged_ward_fires |>
+  ggplot(mapping = aes(x = income, y = total_casualties, color = ward)) +
+  geom_point()+
+  geom_smooth(method = lm, color = "black", se = FALSE) +
+  labs(title= "Number of civilian deaths from fires by ward income, 2018-2022",
+       x = "Median income of ward in 2020",
+       y = "Number of civilian deaths from fires per ward")+
+  theme_minimal()
 

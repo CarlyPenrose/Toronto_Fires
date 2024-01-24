@@ -81,4 +81,27 @@ write_csv(
   file = "cleaned_fire_data1.csv"
 )
 
+# cleaning the names in the ward income file 
+cleaned_Ward_median_income <- 
+  clean_names(Ward_median_income)
+
+#change the ward number to an integer
+cleaned_Ward_median_income <-cleaned_Ward_median_income %>%
+  mutate(
+    ward = as.integer(ward)
+  ) 
+
+head(cleaned_Ward_median_income)
+
+#remove the top row (this is the Toronto-wide number and is not needed here)
+cleaned_Ward_median_income <- cleaned_Ward_median_income[-1, ]
+
+#rename the median household income column
+cleaned_Ward_median_income <- cleaned_Ward_median_income %>%
+  rename(income = median_total_income_of_households_in_2020, ward = ward)
+
+cleaned_Ward_median_income
+
+
+#merge the fires dataset with 
 
