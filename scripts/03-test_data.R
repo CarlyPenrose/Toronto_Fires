@@ -55,7 +55,7 @@ head(sum_per_ward)
 
 cleaned_fire_data |>
   ggplot(aes(x = ward)) +
-  geom_bar(stat = "identity") +
+  geom_bar() +
   theme_minimal() + # Make the theme neater
   labs(title = "Number of fire incidents per ward, 2018-2022", 
        x = "Ward", y = "Number of fires") 
@@ -97,5 +97,3 @@ merged_ward_fires |>
        x = "Median income of ward in 2020",
        y = "Number of civilian deaths from fires per ward")+
   theme_minimal()
-
-
