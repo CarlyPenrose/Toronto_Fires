@@ -39,3 +39,4 @@ simulated_fire_data$year |> min() == 2018
 simulated_fire_data$year |> max() == 2022
 simulated_fire_data$casualties |> min() == 0
 simulated_fire_data$casualties |> class() == "integer"
+
