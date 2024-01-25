@@ -78,7 +78,7 @@ cleaned_fire_data <-
 #save the cleaned data as a new file
 write_csv(
   x = cleaned_fire_data,
-  file = "cleaned_fire_data1.csv"
+  file = "cleaned_fire_data.csv"
 )
 
 # cleaning the names in the ward income file 
@@ -107,9 +107,6 @@ cleaned_Ward_median_income
 #code inspired by Christina Wei's example paper, and helped fine tune with chatgpt
 merged_ward_fires <- merge(sum_per_ward, cleaned_Ward_median_income, by = "ward", all = TRUE)
 
-# Print the merged dataset
-print(merged_ward_fires)
-
 #changing ward to a categorical variable deaths per ward
 
 merged_ward_fires <- merged_ward_fires %>%
@@ -117,4 +114,10 @@ merged_ward_fires <- merged_ward_fires %>%
     ward = as.factor(ward))
 
 print(merged_ward_fires)
+
+#create a new csv file for the merged ward info and fires  
+write_csv(
+  x = merged_ward_fires,
+  file = "merged_ward_fires.csv"
+)
 

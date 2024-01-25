@@ -43,6 +43,12 @@ death_count_per_year
 # Display the result
 print(sum_per_year)
 
+# creates a csv file of this data
+write_csv(
+  x = sum_per_year,
+  file = "sum_per_year.csv"
+)
+
 # Calculate the sum of civilian casualties in each ward
 print(
   sum_per_ward <- cleaned_fire_data |> group_by(ward) |> 
@@ -50,6 +56,13 @@ print(
   n=25)
 
 head(sum_per_ward)
+
+# creates a csv file of ward data
+write_csv(
+  x = sum_per_ward,
+  file = "sum_per_ward.csv"
+)
+
 
 #create a graph of the number of fire incidents per ward 
 
