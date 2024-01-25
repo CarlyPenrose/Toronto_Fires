@@ -12,7 +12,7 @@ Structure
 
 The repo is structured as follows:
 
-1. input/data contains the raw data from OpenData Toronto
+1. inputs contains the raw data from OpenData Toronto
 
 2. outputs contains the files used to generate the paper, including new csv files created during analysis, the Quarto document, and the final paper PDF.
 
