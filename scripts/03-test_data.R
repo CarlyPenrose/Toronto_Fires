@@ -14,11 +14,11 @@ cleaned_fire_data <-
   )
 
 head(cleaned_fire_data)
-library("janitor")
-library("knitr")
-library("lubridate")
-library("opendatatoronto")
-library("tidyverse")
+library(janitor)
+library(knitr)
+library(lubridate)
+library(opendatatoronto)
+library(tidyverse)
 
 #counting how many fire incidents happened per year
 cleaned_fire_data |>

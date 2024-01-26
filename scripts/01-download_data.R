@@ -11,12 +11,12 @@ format: html
 # Date: 21 January 2024
 
 #### Setup Workspace ####
-library("tidyverse")
-library("janitor")
-library("knitr")
-library("lubridate")
-library("opendatatoronto")
-library("dplyr")
+library(tidyverse)
+library(janitor)
+library(knitr)
+library(lubridate)
+library(opendatatoronto)
+library(dplyr)
 
 #### Acquire the fire incident data ####
 toronto_fires <-

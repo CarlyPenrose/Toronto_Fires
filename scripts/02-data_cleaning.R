@@ -11,11 +11,11 @@ format: html
 # Date: 21 January 2024
 
 #### Set up workspace ####
-library("tidyverse")
-library("janitor")
-library("knitr")
-library("lubridate")
-library("opendatatoronto")
+library(tidyverse)
+library(janitor)
+library(knitr)
+library(lubridate)
+library(opendatatoronto)
 
 #preview the data
 head(toronto_fires)
