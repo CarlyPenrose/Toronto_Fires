@@ -7,7 +7,6 @@
 # Prerequisites: -
 
 #### Workspace setup ####
-install.packages("knitr")
 
 library(knitr)
 library(janitor)
