@@ -2,7 +2,7 @@
 
 ## Overview
 
-The paper analyzes the number of civilian casualties from fires in each ward over the years of 2018 through 2022, by median ward income. 
+This paper tests the hypothesis that people in lower-income areas face worse outcomes from structure fires. Analysis was completed using data about the number of civilian casualties from fires in each ward between 2018 through 2022 and median ward income, according to 2021 census data.  
 
 ## Structure
 
