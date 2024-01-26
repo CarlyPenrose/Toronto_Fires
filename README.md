@@ -8,11 +8,17 @@ The paper analyzes the number of civilian casualties from fires in each ward ove
 
 The repo is structured as follows:
 
-1. *inputs* contains the raw data from OpenData Toronto
+1. **inputs** contains the raw data downloaded from OpenData Toronto
 
-2. outputs contains the files used to generate the paper, including new csv files created during analysis, the Quarto document, and the final paper PDF.
+2. **outputs** contains two folders:
+* - data: all data files generated during analysis 
+* - Paper: both the Quarto document and the final paper pdf
 
-3. scripts contains all r scripts used to simulate, download, clean and test the data.
+3. scripts contains all r scripts:
+* - 00-simulate_data: used to run simulated tests of the data
+* - 01-download_data: used to download the data from OpenData Toronto
+* - 02-data_cleaning: used to clean the data, isolate columns and merge the ward income and fire datasets
+* - 03-test_data: used to test the data, run analyses and create plots and graphs.
 
 ## Disclosure
 
