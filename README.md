@@ -1,14 +1,14 @@
-Number of deaths from fires by ward income
+# Number of deaths from fires by ward income
 
-Overview
+##Overview
 
-The paper analyzes the number of civilian casualties from fires in each ward over the years of 2018 through 2022. Then, that number was compared to the median income of each ward. 
+The paper analyzes the number of civilian casualties from fires in each ward over the years of 2018 through 2022, by median ward income. 
 
-Disclosure
+##Disclosure
 
-Some challenges and troubleshooting issues were addressed with the use of ChatGPT 3.5. Instances where code from ChatGPT was used are identified in the script files and the quarto document.
+Some challenges and troubleshooting issues were addressed with the use of ChatGPT 3.5. Instances where code from ChatGPT was used are identified in the scripts and the quarto document.
 
-Structure
+##Structure
 
 The repo is structured as follows:
 
