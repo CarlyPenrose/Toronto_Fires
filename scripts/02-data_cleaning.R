@@ -1,9 +1,4 @@
-title: "clean_fire_data"
-author: "Carly Penrose"
-format: html
----
-  
-  ##### Preamble ####
+#### Preamble ####
 # Purpose: clean  data from OpenData Toronto about fire incidents 2018-2021 
 #so it is usable for my analysis
 # Author: Carly Penrose 

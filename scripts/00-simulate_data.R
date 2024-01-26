@@ -1,4 +1,4 @@
-#### Preamble ####
+###Preamble###
 # Purpose: Simulate data for fire incidents in Toronto over a four year period
 #from 2018 to 2022 
 # Author: Carly Penrose

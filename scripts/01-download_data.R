@@ -1,9 +1,3 @@
----
-title: "download_fire_data"
-author: "Carly Penrose"
-format: html
----
-
 ##### Preamble ####
 # Purpose: Read in data from OpenData Toronto about fire incidents 2017-2021.
 # Author: Carly Penrose 

@@ -1,4 +1,4 @@
-#### Preamble ####
+###Preamble###
 # Purpose: Read in data from fires in Toronto from 2018-2022 and make two graphs:
 #one about the number of fire-related casualties per ward, and one about the 
 #number of fire-related casualties per year.  
