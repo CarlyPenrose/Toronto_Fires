@@ -41,11 +41,11 @@ head(cleaned_fire_data)
 #https://stackoverflow.com/questions/71974098/how-to-remove-everything-after-a-space-in-a-column-of-an-r-data-frame 
 #and ChatGPT LLM to clean up errors in my code from combining the two methods
 
-cleaned_fire_data <- cleaned_fire_data %>%
+cleaned_fire_data <- cleaned_fire_data |>
   mutate(
     tfs_alarm_time = str_remove(tfs_alarm_time, "-.*"),
     tfs_alarm_time = as.integer(tfs_alarm_time)
-  ) %>%
+  ) |>
   rename(deaths = civilian_casualties, ward = incident_ward, year = tfs_alarm_time)
 
 head(cleaned_fire_data)
@@ -86,7 +86,7 @@ cleaned_Ward_median_income <-
   clean_names(Ward_median_income)
 
 #change the ward number to an integer
-cleaned_Ward_median_income <-cleaned_Ward_median_income %>%
+cleaned_Ward_median_income <-cleaned_Ward_median_income |>
   mutate(
     ward = as.integer(ward)
   ) 
@@ -97,7 +97,7 @@ head(cleaned_Ward_median_income)
 cleaned_Ward_median_income <- cleaned_Ward_median_income[-1, ]
 
 #rename the median household income column
-cleaned_Ward_median_income <- cleaned_Ward_median_income %>%
+cleaned_Ward_median_income <- cleaned_Ward_median_income |>
   rename(income = median_total_income_of_households_in_2020, ward = ward)
 
 cleaned_Ward_median_income
@@ -109,7 +109,7 @@ merged_ward_fires <- merge(sum_per_ward, cleaned_Ward_median_income, by = "ward"
 
 #changing ward to a categorical variable deaths per ward
 
-merged_ward_fires <- merged_ward_fires %>%
+merged_ward_fires <- merged_ward_fires |>
   mutate(
     ward = as.factor(ward))
 

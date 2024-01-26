@@ -34,8 +34,8 @@ print(
 sum_per_year <- cleaned_fire_data |> group_by(year) |> 
   summarize(deaths = sum(deaths))
 
-death_count_per_year <- cleaned_fire_data %>%
-  group_by(year) %>%
+death_count_per_year <- cleaned_fire_data |>
+  group_by(year) |>
   summarize(total_deaths = sum(deaths, na.rm = TRUE))
 
 death_count_per_year

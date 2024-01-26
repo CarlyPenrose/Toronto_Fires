@@ -10,19 +10,19 @@ bibliography: ref.bib
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
 #set up workspace
-library("ggplot2")
-library("tidyverse")
-library("janitor")
-library("knitr")
-library("lubridate")
-library("opendatatoronto")
+library(ggplot2)
+library(tidyverse)
+library(janitor)
+library(knitr)
+library(lubridate)
+library(opendatatoronto)
 #load the data
 cleaned_fire_data <- read.csv("cleaned_fire_data.csv")
 merged_ward_fires <- read.csv("merged_ward_fires.csv")
 sum_per_ward <- read.csv("sum_per_ward.csv")
 sum_per_year <- read.csv("sum_per_year.csv")
 
-merged_ward_fires <- merged_ward_fires %>%
+merged_ward_fires <- merged_ward_fires |>
   mutate(
     ward = as.factor(ward))
 
@@ -58,7 +58,13 @@ The City of Toronto provides ward profiles for each of its 25 wards. This includ
 
 Of the years studied, the greatest number of individual fire incidents in Toronto were relatively constant. The year with the most fire incidents was in 2022, followed closely by 2020.
 
-```{r, echo=FALSE, results='hide'}
+```{r} 
+#|echo=false, 
+#|results= 'hide'
+#|message = false
+#|label: fig-fires-per-year
+#|fig-cap: Number of fires incidents by year
+
 cleaned_fire_data |>
   ggplot(aes(x = year)) +
   geom_bar() +
