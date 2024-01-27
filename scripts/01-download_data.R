@@ -15,12 +15,12 @@ library(dplyr)
 #### Acquire the fire incident data ####
 toronto_fires <-
   
-# get all resources for this package
-resources <- list_package_resources("64a26694-01dc-4ec3-aa87-ad8509604f50") |>
-filter(name==
-         "Fire Incidents Data.csv") |>
-# get the resource
-get_resource()
+  # get all resources for this package
+  resources <- list_package_resources("64a26694-01dc-4ec3-aa87-ad8509604f50") |>
+  filter(name==
+           "Fire Incidents Data.csv") |>
+  # get the resource
+  get_resource()
 
 write_csv(
   x = toronto_fires,
@@ -31,11 +31,29 @@ head(toronto_fires)
 
 #### Acquire the data for ward profiles to isolate income ####
 
-#used code from https://arbor-analytics.com/post/getting-your-data-into-r-from-google-sheets/ to help me include the code from the ward profiles#
-install.packages("googlesheets4")
-library(googlesheets4)
 
-Ward_median_income <- read_sheet("https://docs.google.com/spreadsheets/d/1GhXf26tWdIasxY-KDeeGfmWv3EPXFACMI8gRtYWI1e8/edit?usp=sharing")
+#### Acquire the data for ward profiles ####
+#the data is only available on OpenData Toronto in xlsx form, so had to install and load new libraries
+library(readxl)
+library(writexl)
 
-head(Ward_median_income)
+# get package
+library(dplyr)
+#I went to Sharla Gelfand's github to get code for a multi-sheet xlsx file
+#https://sharlagelfand.github.io/opendatatoronto/articles/articles/multisheet_resources.html
+ward_profiles <- list_package_resources("https://open.toronto.ca/dataset/ward-profiles-25-ward-model/") |>
+  filter(name == "2023-WardProfiles-2011-2021-CensusData") |>
+  get_resource()
+
+#further following Gelfand's instruction, used this to isolate the first sheet called "2021 One Variable"
+wards_2021 <- ward_profiles[["2021 One Variable"]]
+
+#save the ward profiles data as a csv, used the "as.data.frame" function from example paper 
+#https://github.com/christina-wei/INF3104-1-Covid-Clinics/blob/main/scripts/00-download_data.R
+write_csv(
+  x = as.data.frame(wards_2021),
+  file = "2021_ward_profiles.csv"
+)
+
+
 
