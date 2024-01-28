@@ -57,6 +57,12 @@ tail(cleaned_fire_data)
 cleaned_fire_data <-
   filter(cleaned_fire_data, year >= 2018)
 
+#change the ward number to a factor instead of an integer
+cleaned_fire_data <-cleaned_fire_data |>
+  mutate(
+    ward = as.factor(ward)
+  ) 
+
 #re-check the tests to see if the filter worked 
 cleaned_fire_data$ward |> min() == 1
 cleaned_fire_data$ward |> max() == 25
@@ -69,46 +75,65 @@ cleaned_fire_data$deaths |> class() == "integer"
 cleaned_fire_data <-
   filter(cleaned_fire_data, ward >= 1)
 
-
 #save the cleaned data as a new file
 write_csv(
   x = cleaned_fire_data,
   file = "cleaned_fire_data.csv"
 )
 
-# cleaning the names in the ward income file 
-cleaned_Ward_median_income <- 
-  clean_names(Ward_median_income)
+# reading in the ward file.
+ward_profiles_2021 <- 
+  read_csv(
+  file = "2021_ward_profiles.csv",
+  show_col_types = FALSE)
 
-#change the ward number to an integer
-cleaned_Ward_median_income <-cleaned_Ward_median_income |>
+ward_profiles_2021
+
+nrow(ward_profiles_2021)
+
+#the data I want is on row 1385. Slicing that and the row above it, which has the ward name. Taken from 
+# the tidyverse github account https://dplyr.tidyverse.org/reference/slice.html  
+ward_income <- ward_profiles_2021 |> slice(1384)
+
+ward_income
+
+#mutate the list into a dataframe.
+
+median_ward_income <- as.data.frame(ward_income)
+
+#skip the first two rows, which are just the title and the median for the City of Toronto overall
+
+median_ward_income <- median_ward_income[-(1:2)]
+
+#I knew to transpose the data, but when trying the function it would always turn into a list. I 
+#used ChatGPT to keep it as a dataframe then restart the index. 
+median_ward_income_clean <- as.data.frame(t(median_ward_income))
+median_ward_income_clean <- as_tibble(median_ward_income_clean)
+median_ward_income_clean <- rownames_to_column(median_ward_income_clean, var = "RowIndex")
+
+#used elections example from Telling Stories with Data to rename the RowIndex column to "ward"
+median_ward_income_clean <-
+  median_ward_income_clean |>
+  rename(
+    ward = RowIndex,
+    median_income = V1
+  )
+
+head(median_ward_income_clean)
+
+#change the ward number to a factor
+median_ward_income_clean <-median_ward_income_clean |>
   mutate(
-    ward = as.integer(ward)
+    ward = as.factor(ward),
+    median_income = as.integer(median_income)
   ) 
 
-head(cleaned_Ward_median_income)
-
-#remove the top row (this is the Toronto-wide number and is not needed here)
-cleaned_Ward_median_income <- cleaned_Ward_median_income[-1, ]
-
-#rename the median household income column
-cleaned_Ward_median_income <- cleaned_Ward_median_income |>
-  rename(income = median_total_income_of_households_in_2020, ward = ward)
-
-cleaned_Ward_median_income
+head(median_ward_income_clean)
 
 #merge the two files for median income and 
 # create a new dataset by merging the median income data with the ward data 
 #code inspired by Christina Wei's example paper, and helped fine tune with chatgpt
-merged_ward_fires <- merge(sum_per_ward, cleaned_Ward_median_income, by = "ward", all = TRUE)
-
-#changing ward to a categorical variable deaths per ward
-
-merged_ward_fires <- merged_ward_fires |>
-  mutate(
-    ward = as.factor(ward))
-
-print(merged_ward_fires)
+merged_ward_fires <- merge(sum_per_ward, median_ward_income_clean, by = "ward", all = TRUE)
 
 #create a new csv file for the merged ward info and fires  
 write_csv(
