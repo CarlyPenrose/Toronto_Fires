@@ -16,12 +16,14 @@ library(janitor)
 library(knitr)
 library(lubridate)
 library(opendatatoronto)
+library(scales)
 
 #load the data
-cleaned_fire_data <- read.csv("cleaned_fire_data.csv")
-merged_ward_fires <- read.csv("merged_ward_fires.csv")
-sum_per_ward <- read.csv("sum_per_ward.csv")
-sum_per_year <- read.csv("sum_per_year.csv")
+cleaned_fire_data <- read.csv("~/Toronto_Fires/cleaned_fire_data.csv")
+merged_ward_fires <- read.csv("~/Toronto_Fires/merged_ward_fires.csv")
+sum_per_ward <- read.csv("~/Toronto_Fires/sum_per_ward.csv")
+sum_per_year <- read.csv("~/Toronto_Fires/sum_per_year.csv")
+
 ```
 
 ## Introduction
@@ -30,13 +32,13 @@ In 2021, nearly 200 people were killed and almost 900 were injured in a housefir
 
 There were thousands of fire incidents in Toronto between 2018 and 2022. The Toronto Fire Service, (TFS) keeps records on all of the incidents for which they were called. The TFS is the largest fire service in Canada and the fifth-largest in [North America](https://www.toronto.ca/city-government/accountability-operations-customer-service/city-administration/staff-directory-divisions-and-customer-service/fire-services/) [@TFSCite], with 85 fire stations and serving a population of nearly 3 million people in the City of Toronto. TFS and the Ontario Fire Marshall provide data about incidents in the city and including source, effects and response times and post the information on OpenData Toronto [@FireDataCite]. 
 
-Toronto is also separated into geographic areas known as "wards." These are electoral areas in the city each with a population of roughly 100,000 people. The City of Toronto keeps records on demographic profiles of each of the city's 25 wards, including income metrics.  
+Toronto is also separated into geographic areas known as wards. These are electoral areas in the city each with a population of roughly 100,000 people. The City of Toronto keeps records on demographic profiles of each of the city's 25 wards, including income metrics.  
 
-This paper will test the hypothesis that lower income areas have more dire outcomes from fires. First, it will explore the wards in which civilian casualties from all TFS fire incidents were greatest using fire incident data from 2018 to December 2022. I then examined the average income of each ward according to the 25 ward profiles published by the City of Toronto and plotted the two variables [@WardDataCite].
+This paper will test the hypothesis that lower income areas have more dire outcomes from fires. First, it will explore the wards in which civilian casualties from TFS-reported fire incidents were greatest from years 2018 to 2022. It then examines median ward income according to ward profiles published by the City of Toronto to understand the relationship between median income and deaths from fires [@WardDataCite].
 
 ## Data
 
-Data used come from the OpenData Toronto portal through the library `opendatatoronto` [@citeODT]. Data were cleaned and analyzed using the open source statistical programming language R [@citeR]. Libraries `tidyverse` [@CiteTD], `janitor` [@Citejan], `knitr` [@knitr], `dplyr` [@citedplyr], and `lubridate` [@Citelub] were used for simulating, cleaning, running tests and creating graphics for the project.
+Data are from the OpenData Toronto portal through the library `opendatatoronto` [@citeODT]. Data were cleaned and analyzed using the open source statistical programming language R [@citeR]. Libraries `tidyverse` [@CiteTD], `janitor` [@Citejan], `knitr` [@knitr], `dplyr` [@citedplyr], and `lubridate` [@Citelub] were used for simulating, cleaning, running tests and creating graphics for the project. Graphs were made using `ggplot2` [@citeGG]
 
 ### Fire Incidents data
 
@@ -58,36 +60,31 @@ The data for median income of each ward was collected from ward profiles based o
 
 ### Fire incidents by year
 
-Of the years studied, the number of fire incidents in Toronto were relatively consistent. However, the most fire incidents occured in 2022, followed closely by 2020 [@fig_1_fires_by_year].
+There were, on average nearly 3,500 fires incidents per year from 2018 to 2022. The most fire incidents occurred in 2022, followed closely by 2020 [@fig-1]. The year with the fewest incidents was 2019, with just less than 3,000. 
 
-```{r} 
-#|echo=false, 
-#|results = 'hide'
-#|message = false
-#|label = fig_1_fires_by_year
-#|fig-cap = "Number of fires incidents by year"
+```{r, echo=FALSE, results='hide', message=FALSE}
+#| label: fig-1
+#| fig-cap: "Number of fire incidents in Toronto, by year, from 2018-2022" 
+#| warning: false
 
 cleaned_fire_data |>
   ggplot(aes(x = year)) +
   geom_bar() +
   theme_minimal() + 
-  labs(title = "Number of fires in Toronto since 2018, by year",
+  labs(title = "Fire incidents in Toronto, 2018-2022",
        x = "Year", y = "Fires"
        ) 
 ```
 
-Despite the higher number of fires in 2022 and 2020, the greatest number of civilian deaths from fires happened in 2018 [@fig_2_fire_deaths]
+Despite the higher number of fires in 2022 and 2020, the greatest number of civilian deaths from fires happened in 2018 [@fig-2]
 
-```{r} 
-#|echo=false, 
-#|results= 'hide'
-#|message = false
-#|label = fig_2_fire_deaths
-#|fig-cap = "Number of civilian deaths from fires by year"
-
+```{r, echo=FALSE, results='hide', message=FALSE}
+#| label: fig-2
+#| fig-cap: "Number of civilian casualties from fire incidents by year, 2018-2022" 
+#| warning: false
 ggplot(sum_per_year, aes(x = factor(year), y = deaths)) +
   geom_bar(stat = "identity") +
-  labs(title = "Total civilian casualties in fire incidents by year",
+  labs(title = "Civilian casualties in fire incidents by year",
        x = "Year",
        y = "Total Civilian Casualties") +
   theme_minimal()
@@ -95,36 +92,28 @@ ggplot(sum_per_year, aes(x = factor(year), y = deaths)) +
 
 ### Fire incidents by ward
 
-The ward that had the greatest number of unique fire incidents from 2018 to 2022 was ward 13, Toronto Centre [@fig_3_fires_by_ward]. The fewest fires happened in ward 23, Scarborough North.
+Ward 13, Toronto Centre had the greatest number of fire incidents from 2018 to 2022. Ward 22, Scarborough Agincourt had the fewest fires [@fig-3].
 
-```{r}
-#|echo=false, 
-#|results= 'hide'
-#|message = false
-#|label = fig_3_fires_by_ward
-#|fig-cap = "Number of fires incidents by ward, 2018-2022"
-
-#had chat GPT help me with the "levels = unique(ward)" function to make all of the tick marks show along the x-axis
-cleaned_fire_data |>
-  ggplot(aes(x = factor(ward, levels = unique(ward)))) +
+```{r, echo=FALSE, results='hide', message=FALSE}
+#| label: fig-3
+#| fig-cap: "Number of fire incidents by ward, 2018-2022" 
+#| warning: false
+  ggplot(cleaned_fire_data, aes(x = factor(ward))) +
   geom_bar() +
   theme_minimal() +
   labs(title = "Number of fire incidents per ward, 2018-2022", 
        x = "Ward", y = "Fire incidents")
 ```
 
-The ward in which the most civilian casualties due to fires took place was ward 13, Toronto Centre. The ward with the fewest civilian casualties due to fires was ward 23, Scarborough North[@fig_4_fire_deaths_ward].
+Ward 13 also saw the most civilians die from fires, while Ward 23, Scarborough North had the fewest fire-related civilian casualties [@fig-4].
 
-```{r}
-#|echo=false, 
-#|results = 'hide'
-#|message = false
-#|label = fig_4_fire_deaths_ward
-#|fig-cap = "Number of civilian deaths from fires by ward, 2018-2022"
-
+```{r, echo=FALSE, results='hide', message=FALSE}
+#| label: fig-4
+#| fig-cap: "Number of civilian casualties from fire incidents by ward, 2018-2022" 
+#| warning: false
 ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
   geom_bar(stat = "identity") +
-  labs(title = "Total civilian casualties from fires by ward, 2018-2022",
+  labs(title = "Civilian casualties from fires by ward",
        x = "Ward",
        y = "Civilian casualties") +
   theme_minimal() 
@@ -132,29 +121,38 @@ ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
 
 ### Fire incidents relationship to income
 
-There appeared to be a negative relationship between median income in a ward and the number of civilian casualties from fires in Toronto. The higher the median income of a ward, the fewer civilian deaths occurred in that ward [@fig_5_fire_deaths_ward_income].
+There appeared to be a negative relationship between median income in a ward and the number of civilian casualties from fires in Toronto. The higher the median income of a ward, the fewer civilian deaths occurred in that ward [@fig-5].
 
-```{r}
-#|echo=false, 
-#|results= 'hide'
-#|message = false
-#|label = fig_5_fire_deaths_ward_income
-#|fig-cap = "Number of civilian deaths from fires by ward income, 2018-2022"
-#|warning = FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE}
+#| label: fig-5
+#| fig-cap: "Number of civilian casualties from fires by median income of ward" 
+#| warning: false
+#| 
+merged_ward_fires <- merged_ward_fires |>
+  mutate(
+    ward = as.factor(ward),
+    median_income = as.numeric(median_income),
+    total_casualties = as.integer(total_casualties)
+  )
 
+#build the scatter plot. Code taken from Telling Stories with Data Chapter 5 
 merged_ward_fires |>
-  ggplot(mapping = aes(x = income, y = total_casualties, color = ward)) +
+  ggplot(mapping = aes(x = median_income, y = total_casualties, color = ward)) +
   geom_point() +
+ # geom_smooth(method = lm, color = "black", se = FALSE) +
   labs(title = "Civilian deaths from fires by ward income",
        x = "Median ward income (2020)",
        y = "Civilian fire deaths") +
   theme_minimal() +
-  #took the code below from chatgpt help because the x axsis values were abbreviated 
-  scale_x_continuous(breaks = seq(min(merged_ward_fires$income), max(merged_ward_fires$income), by = 5000))
+#this section was taken from ChatGPT to ensure the x-axis values were shown in full vs mathematical notation. I tried code from various places, including http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations#format-axis-tick-mark-labels-1 and from previous student work, but wasn't able to come up with a way to display the income numbers properly without LLM help.
+  scale_x_continuous(breaks = seq(min(merged_ward_fires$median_income, na.rm = TRUE),
+                                  max(merged_ward_fires$median_income, na.rm = TRUE),
+                                  by = 5000),
+                     labels = scales::number_format(scale = 1e-3, suffix = "k"))
 
 ```
 
-*Include a bit more about the findings in this graph*
+The wards with the highest incomes, including Ward 25, Scarborough-Rouge Park (median income $105,000), which includes the high-income Bridle Path neighbourhood, as well 
 
 ## Conclusion
 
