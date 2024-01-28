@@ -55,5 +55,3 @@ write_csv(
   file = "2021_ward_profiles.csv"
 )
 
-
-

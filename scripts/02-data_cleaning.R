@@ -127,9 +127,16 @@ median_ward_income_clean <-median_ward_income_clean |>
 head(median_ward_income_clean)
 
 #merge the two files for median income and 
-# create a new dataset by merging the median income data with the ward data 
+#create a new dataset by merging the median income data with the ward data 
 #code inspired by Christina Wei's example paper, and helped fine tune with chatgpt
 merged_ward_fires <- merge(sum_per_ward, median_ward_income_clean, by = "ward", all = TRUE)
+
+merged_ward_fires <- merged_ward_fires |>
+  mutate(
+    ward = as.factor(ward),
+    median_income = as.numeric(median_income),
+    total_casualties = as.integer(total_casualties)
+  )
 
 #create a new csv file for the merged ward info and fires  
 write_csv(
