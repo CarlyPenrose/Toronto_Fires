@@ -97,16 +97,12 @@ ward_income <- ward_profiles_2021 |> slice(1384)
 
 ward_income
 
-#mutate the list into a dataframe.
-
-median_ward_income <- as.data.frame(ward_income)
-
 #skip the first two rows, which are just the title and the median for the City of Toronto overall
 
 median_ward_income <- median_ward_income[-(1:2)]
 
 #I knew to transpose the data, but when trying the function it would always turn into a list. I 
-#used ChatGPT to keep it as a dataframe then restart the index. 
+#used ChatGPT for the t(x) transpose function to keep it as a dataframe and to restart the index.
 median_ward_income_clean <- as.data.frame(t(median_ward_income))
 median_ward_income_clean <- as_tibble(median_ward_income_clean)
 median_ward_income_clean <- rownames_to_column(median_ward_income_clean, var = "RowIndex")

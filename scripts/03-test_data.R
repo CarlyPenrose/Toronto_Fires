@@ -9,7 +9,7 @@
 #### Read in the data ####
 cleaned_fire_data <-
   read_csv(
-    file = "cleaned_fire_data1.csv",
+    file = "cleaned_fire_data.csv",
     show_col_types = FALSE
   )
 
@@ -103,7 +103,7 @@ ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
 # create a scatterplot comparing the number of civilian casualties per ward to the median income per ward
 #code adapted from Telling Stories with Data chapter 5
 merged_ward_fires |>
-  ggplot(mapping = aes(x = income, y = total_casualties, color = ward)) +
+  ggplot(mapping = aes(x = median_income, y = total_casualties, color = ward)) +
   geom_point()+
   geom_smooth(method = lm, color = "black", se = FALSE) +
   labs(title= "Number of civilian deaths from fires by ward income, 2018-2022",
