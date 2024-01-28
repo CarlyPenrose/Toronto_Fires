@@ -3,7 +3,7 @@ title: "Lower Income Wards Experience More Civilian Deaths from Fires ^[Code and
 author: "Carly Penrose"
 date: today
 date format: long
-abstract: "Using Toronto Fire Service data from OpenData Toronto and Toronto ward profiles, this paper found Toronto Centre is the ward in which the most civilian deaths from fires took place. There also appears to be a negative relationship between the median income of a ward and the number of civilian deaths from fires, with lower income wards having the most deaths in fires."
+abstract: "Using Toronto Fire Service data from OpenData Toronto and Toronto ward profiles, this paper found Toronto Centre is the ward in which the most civilian deaths from fires took place. There also appears to be a negative relationship between the median income of a ward and the number of civilian deaths from fires, with more people dying from fires in lower income wards."
 format: pdf
 bibliography: ref.bib
 ---
@@ -30,39 +30,42 @@ merged_ward_fires <- merged_ward_fires |>
 
 ## Introduction
 
-In 2021, hundreds were killed and 873 were injured in a housefires [@StatCanFires]. Each year, many more are displaced. While fires can be devastating for all those who experience them, [news](https://www.thespec.com/news/hamilton-region/when-fire-meets-poverty-the-economics-of-fire/article_28c2acd7-2101-5579-b9cd-82b5368a09af.html) reports out of Hamilton, Ontario suggest fires don't affect all equally [@TheSpecCite]. Fires are more severe and more deadly in low income areas of Hamilton compared to affluent suburban areas, the author found. Research out of the United Kingdom has also found various sociodemographic factors of [disadvantage](https://webarchive.nationalarchives.gov.uk/ukgwa/20120919141831/http://www.communities.gov.uk/publications/fire/frsperformanceanalysis) [@FireStudyUK] are linked to more destructive and deadly fires.
+In 2021, hundreds were killed and 873 were injured in a housefire [@StatCanFires]. Many more were displaced. While structure fires can be devastating for all those who experience them, [news](https://www.thespec.com/news/hamilton-region/when-fire-meets-poverty-the-economics-of-fire/article_28c2acd7-2101-5579-b9cd-82b5368a09af.html) reports out of Hamilton, Ontario suggest fires are more severe and deadly in low income areas of Hamilton compared to affluent suburban areas [@TheSpecCite]. Research out of the United Kingdom has also found various sociodemographic factors of [disadvantage](https://webarchive.nationalarchives.gov.uk/ukgwa/20120919141831/http://www.communities.gov.uk/publications/fire/frsperformanceanalysis) [@FireStudyUK] are linked to more destructive and deadly fires.
 
-The Toronto Fire Service (TFS) is largest fire departments in Canada and the fifth-largest in [North America](https://www.toronto.ca/city-government/accountability-operations-customer-service/city-administration/staff-directory-divisions-and-customer-service/fire-services/) [@TFSCite]. It has 85 fire stations and serves a population of nearly 3 million people in the City of Toronto across 25 wards. TFS and the Ontario Fire Marshall provide data about alarms in the city and the source, effects and response times.
+The largest fire service in Canada is The Toronto Fire Service (TFS). It is also fifth-largest in [North America](https://www.toronto.ca/city-government/accountability-operations-customer-service/city-administration/staff-directory-divisions-and-customer-service/fire-services/) [@TFSCite], with 85 fire stations and serving a population of nearly 3 million people in the City of Toronto. TFS and the Ontario Fire Marshall provide data about alarms in the city and the source, effects and response times and post the information on OpenData Toronto [@FireDataCite].
 
-In this paper, I will test the hypothesis that lower income areas have more dire outcomes from fires. I explore the wards in which civilian casualties from all fire incidents in which TFS was called, were the greatest using fire incident data from 2018 to December 2022 collected by TFS and the Ontario Fire Marshal and published on OpenData Toronto [@FireDataCite]. I then examined the average income of each ward according to the 25 ward profiles published by the City of Toronto and plotted the two variables [@WardDataCite].
+This paper will test the hypothesis that lower income areas have more dire outcomes from fires. First, it will explore the wards in which civilian casualties from all TFS fire incidents were greatest using fire incident data from 2018 to December 2022. I then examined the average income of each ward according to the 25 ward profiles published by the City of Toronto and plotted the two variables [@WardDataCite].
 
 ## Data
 
-Data used come from the OpenData Toronto portal through the library `opendatatoronto` [@citeODT]. Data were cleaned and analyzed using the open source statistical programming language R [@citeR]. Libraries `tidyverse` [@CiteTD], `janitor` [@Citejan], `knitr` [@knitr], `dplyr` [@citedplyr], and lubridate [@Citelub] were used for simulating, cleaning, running tests and creating graphics for the project.
+Data used come from the OpenData Toronto portal through the library `opendatatoronto` [@citeODT]. Data were cleaned and analyzed using the open source statistical programming language R [@citeR]. Libraries `tidyverse` [@CiteTD], `janitor` [@Citejan], `knitr` [@knitr], `dplyr` [@citedplyr], and `lubridate` [@Citelub] were used for simulating, cleaning, running tests and creating graphics for the project.
 
 ### Fire Incidents data
 
 Fire Incidents data are provided by the City of Toronto Fire Marshall and are updated on OpenData Toronto on an annual basis. The most recent data are from December 2022. The dataset tracks all fire incidents for which TFS was alerted, starting in 2011.
 
-The dataset includes nearly 30,000 fire incidents over 11 years. It tracks the date of the incident, the location to the nearest intersection as well as the ward in which the incident took place, the time that TFS was alerted to the fire and the time that TFS arrived at the scene. It also records civilian casualties, TFS casualties, property lost (in dollars) and incident type.
+The dataset includes nearly 30,000 fire incidents over 11 years. It tracks the date of the incident, the location to the nearest intersection, the ward in which the incident took place, the time TFS was alerted to the fire and the time TFS arrived at the scene. It also records civilian casualties, TFS casualties, property lost (in dollars) and incident type.
 
-Data was isolated for 2018 through 2022, because the City of Toronto switched from a 44-ward model to a 25 ward model in 2018, and ward information recorded prior to 2018 would not match more recent data.
+Data were isolated for 2018 through 2022. In 2018, the City of Toronto switched from a 44-ward to a 25-ward model. Ward information recorded prior to 2018 would not match more recent data and could introduce errors. 
 
 ### Ward demographics
 
-The City of Toronto provides ward profiles for each of its 25 wards. This includes population, age, ethnic group, language spoken and median income. The data for median income of each ward was collected from ward profiles based on the 2021 census [@WardDataCite] and compiled into a single dataset. This data was then merged with the fire dataset to allow for comparison.
+The City of Toronto provides ward profiles for each of its 25 wards. This includes population, age, ethnic group, language spoken and median income. The data for median income of each ward was collected from ward profiles based on the 2021 Statistics Canada census [@WardDataCite]. These data were then merged with the fire data for comparison.
+
+### Cleanining and selecting the data
+Data used 
 
 ## Results
 
 ### Fire incidents by year
 
-Of the years studied, the greatest number of individual fire incidents in Toronto were relatively constant. The year with the most fire incidents was in 2022, followed closely by 2020.
+Of the years studied, the number of fire incidents in Toronto were relatively consistent. However, the most fire incidents occured in 2022, followed closely by 2020 [@fig_1_fires_by_year].
 
 ```{r} 
 #|echo=false, 
 #|results= 'hide'
 #|message = false
-#|label: fig-fires-per-year
+#|label: fig_1_fires_by_year
 #|fig-cap: Number of fires incidents by year
 
 cleaned_fire_data |>
@@ -70,13 +73,19 @@ cleaned_fire_data |>
   geom_bar() +
   theme_minimal() + 
   labs(title = "Number of fires in Toronto since 2018, by year",
-       x = "Year", y = "Number of fires"
+       x = "Year", y = "Fires"
        ) 
 ```
 
-The greatest number of civilian deaths from fires in Toronto happened in 2018 followed closely by 2019.
+Despite the higher number of fires in 2022 and 2020, the greatest number of civilian deaths from fires happened in 2018 [@fig_2_fire_deaths]
 
-```{r, echo=FALSE, results='hide'}
+```{r} 
+#|echo=false, 
+#|results= 'hide'
+#|message = false
+#|label: fig_2_fire_deaths
+#|fig-cap: Number of civilian deaths from fires by year
+
 ggplot(sum_per_year, aes(x = factor(year), y = deaths)) +
   geom_bar(stat = "identity") +
   labs(title = "Total civilian casualties in fire incidents by year",
@@ -87,10 +96,16 @@ ggplot(sum_per_year, aes(x = factor(year), y = deaths)) +
 
 ### Fire incidents by ward
 
-The ward which had the greatest number of unique fire incidents from 2018 to 2022 was ward 13, Toronto Centre, with the fewest in Scarborough North, ward 23.
+The ward that had the greatest number of unique fire incidents from 2018 to 2022 was ward 13, Toronto Centre [@fig_3_fires_by_ward]. The fewest fires happened in ward 23, Scarborough North.
 
-```{r, echo=FALSE, results='hide'}
-#had chat GPT help me with the levels = unique(ward) function to make all of the tick marks show.
+```{r}
+#|echo=false, 
+#|results= 'hide'
+#|message = false
+#|label: fig_3_fires_by_ward
+#|fig-cap: Number of fires incidents by ward, 2018-2022
+
+#had chat GPT help me with the "levels = unique(ward)" function to make all of the tick marks show along the x-axis
 cleaned_fire_data |>
   ggplot(aes(x = factor(ward, levels = unique(ward)))) +
   geom_bar() +
@@ -99,9 +114,15 @@ cleaned_fire_data |>
        x = "Ward", y = "Fire incidents")
 ```
 
-The ward in which the most civilian casualties due to fires took place was ward 13, Toronto Centre. The ward with the fewest civilian casualties due to fires was ward 23, Scarborough North.
+The ward in which the most civilian casualties due to fires took place was ward 13, Toronto Centre. The ward with the fewest civilian casualties due to fires was ward 23, Scarborough North[@fig_4_fire_deaths_ward].
 
-```{r, echo=FALSE, results='hide'}
+```{r}
+#|echo=false, 
+#|results= 'hide'
+#|message = false
+#|label: fig_4_fire_deaths_ward
+#|fig-cap: Number of civilian deaths from fires by ward, 2018-2022
+
 ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
   geom_bar(stat = "identity") +
   labs(title = "Total civilian casualties from fires by ward, 2018-2022",
@@ -112,24 +133,41 @@ ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
 
 ### Fire incidents relationship to income
 
-There appeared to be a negative relationship between median income in a ward and the number of civilian casualties from fires in Toronto. The higher the median income of a ward, the fewer civilian deaths occurred in that ward.
+There appeared to be a negative relationship between median income in a ward and the number of civilian casualties from fires in Toronto. The higher the median income of a ward, the fewer civilian deaths occurred in that ward [@fig_5_fire_deaths_ward_income].
 
-```{r, echo=FALSE, results='hide', warning=FALSE}
+```{r}
+#|echo=false, 
+#|results= 'hide'
+#|message = false
+#|label: fig_5_fire_deaths_ward_income
+#|fig-cap: Number of civilian deaths from fires by ward income, 2018-2022
+#|warning=FALSE}
 
 merged_ward_fires |>
   ggplot(mapping = aes(x = income, y = total_casualties, color = ward)) +
   geom_point() +
-  labs(title = "Civilian fire deaths by ward income",
+  labs(title = "Civilian deaths from fires by ward income",
        x = "Median ward income (2020)",
-       y = "Civilian deaths from fires") +
+       y = "Civilian fire deaths") +
   theme_minimal() +
   #took the code below from chatgpt help because the x axsis values were abbreviated 
   scale_x_continuous(breaks = seq(min(merged_ward_fires$income), max(merged_ward_fires$income), by = 5000))
 
 ```
 
+*Include a bit more about the findings in this graph*
+
 ## Conclusion
 
-This paper investigated the wards in which the most civilians died from structure fires, according to TFS data from the Ontario Fire Marshal retrieved from OpenData Toronto. Toronto Centre experienced the most civilian deaths from fires, while Scarborough North has the fewest. There appeared to be a negative relationship between number of civilian casualties from fires and the median income of a ward. It is possible this relationship could be explained by other factors such as density of housing units, traffic. There is also research to suggest that more affordable housing may be more likely to lack updated fire safety standards for tenants [@firesafety]. More research should be done to clarify the nature of the relationship between income and civilian risk of death in a structure fire.
+This paper investigated the wards in which the most civilians died from structure fires, according to TFS data from the Ontario Fire Marshal retrieved from OpenData Toronto. Results show that more civilians died from fires in Toronto Centre than any other ward over the years of 2018-2022. The fewest civilians died from fires in Scarborough North. There appeared to be a negative relationship between number of civilian casualties from fires and the median income of a ward, with a lower-median income correlating to a more civilian casualties from fires.
+
+It is possible this relationship could be explained by other factors such as density of housing units, traffic. There is also research to suggest that more affordable housing may be more likely to lack updated fire safety standards for tenants [@firesafety]. More research should be done to clarify the nature of the relationship between income and civilian risk of death in a structure fire.
+
+Limitations of this analysis include incomplete data. There were ____ instances of incomplete data which were excluded. According to the Ontario Fire Marshall, incomplete data could be the result of...
+
+Additionally
+
+Implications...
+- The 
 
 ## References
