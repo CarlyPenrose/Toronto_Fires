@@ -121,7 +121,7 @@ head(median_ward_income_clean)
 median_ward_income_clean <-median_ward_income_clean |>
   mutate(
     ward = as.factor(ward),
-    median_income = as.integer(median_income)
+    median_income = as.numeric(median_income)
   ) 
 
 head(median_ward_income_clean)
