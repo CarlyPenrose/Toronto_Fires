@@ -1,5 +1,5 @@
 ---
-title: "Lower Income Wards Experience More Civilian Deaths from Fires ^[Code and data is available at: github.com/CarlyPenrose/Toronto_Fires]"
+title: "More Civilian Deaths from Fires Linked to Lower Incomes in Toronto Wards^[Code and data is available at: github.com/CarlyPenrose/Toronto_Fires]"
 author: "Carly Penrose"
 date: today
 date format: long
@@ -156,23 +156,21 @@ In Toronto Centre, which has the lowest median income in the city at $65,000, 52
 
 The ward where the fewest people died from fires was Scarborough North which has a median household income of $87,000. Only eight people died from fires over four years.  
 
-## Conclusion
+## Discussion
 
 This paper investigated the wards in which the most civilians died from structure fires, according to TFS data from the Ontario Fire Marshal retrieved from OpenData Toronto. Results show that more civilians died from fires in Toronto Centre than any other ward over the years of 2018-2022. The fewest civilians died from fires in Scarborough North. There appeared to be a negative relationship between number of civilian casualties from fires and the median income of a ward, with a lower-median income correlating to a more civilian casualties from fires.
 
 It is possible this relationship could be explained by other factors such as density of housing units, traffic. There is also research to suggest that more affordable housing may be more likely to lack updated fire safety standards for tenants [@firesafety]. More research should be done to clarify the nature of the relationship between income and civilian risk of death in a fire.
 
-It is also possible that other factors, like TFS response time are correlated to more deaths. This dataset provides the time TFS was called as well as the time they arrived on site. Examining how the length of time to response is related to casualties, and how that relates to median income could also further this research.
+It is also possible that other factors, like TFS response time are correlated to more deaths. This dataset provides the time TFS was alerted to an incident as well as the time they arrived on site. Examining how the length of time to respond is related to casualties and how that relates to median income could also further this research. Other demographic factors linked to lower-income due to systemic bias and discrimination like ethic background or immigration status could be another dimension to study with these data.
 
-Further research looking at other demographic factors linked to lower-income due to systemic bias and discrimination like ethic background or immigration status could be another dimension to study with these data.
-
-These findings could help inform policy outside of just education, that could inform public safety steps local governments could take to ensure people in lower income areas have the same protections and access to quick TFS services, which could save lives. 
+These findings could help inform policy outside of just fire prevention education. If further research supports this finding, it could inform public safety steps local governments could take including more routine and widespread fire safety inspections in low-income areas. This could ensure people in lower income areas have the same protections and access to quick TFS services, which in turn could save lives. 
 
 ### Limitations 
-Importantly, the TFS data should be verified for accuracy. According to the TFS fire incident data used, 173 people died from fires in 2018. However, according some Statistics Canada reports, only 161 people died from fires across the country. It would be important to compare the data collection methods for the TFS to the methods used by Statistics Canada to ensure the data are compiled correctly. 
+Importantly, the TFS data should be verified for accuracy. According to the TFS fire incident data used, 173 people died from fires in 2018. However, according some Statistics Canada reports, only 161 people died from fires across the country. While the TFS data is not limited just to house fires but includes all incidents for which TFS was called, which could explain some of the discrepancy, it would be important to compare the data collection methods for the TFS to the methods used by Statistics Canada to ensure the data are compiled correctly. 
 
-The TFS data were incomplete. For 144 incidents data had to be excluded from the analysis because they were incomplete. However, these data would have been unlikely to change the outcome of the analysis, as according to the Ontario Fire Marshall, incidents with incomplete data may be under investigation or is classified as a no loss outdoor fire, which would have resulted in no civilian casualties.
+The TFS data were incomplete. Data for 144 incidents had to be excluded from the analysis because they did not include the ward in which the incident took place. However, these data would have been unlikely to change the outcome of the analysis, as according to the Ontario Fire Marshall, incidents with incomplete data may be under investigation or classified as a "no loss outdoor fire," which would have resulted in no civilian casualties.
 
-Additionally, for the scope and purposes of this analysis, the only factor to measure the severity of fires used was civilian deaths. But TFS data includes other variables including injuries. An analysis which includes this variable could also be an important measure of the severity of fires. 
+Additionally, for the scope and purposes of this analysis, the only variable used to gauge the severity of fires was civilian deaths. But TFS data includes other variables including injuries. An analysis which includes this variable could also be an important measure of the severity of fires. 
 
 ## References
