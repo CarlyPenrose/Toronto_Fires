@@ -19,10 +19,10 @@ library(opendatatoronto)
 library(scales)
 
 #load the data
-cleaned_fire_data <- read.csv("~/Toronto_Fires/cleaned_fire_data.csv")
-merged_ward_fires <- read.csv("~/Toronto_Fires/merged_ward_fires.csv")
-sum_per_ward <- read.csv("~/Toronto_Fires/sum_per_ward.csv")
-sum_per_year <- read.csv("~/Toronto_Fires/sum_per_year.csv")
+cleaned_fire_data <- read.csv("~/Toronto_Fires/outputs/Data/cleaned_fire_data1.csv")
+merged_ward_fires <- read.csv("~/Toronto_Fires/outputs/Data/merged_ward_fires1.csv")
+sum_per_ward <- read.csv("~/Toronto_Fires/outputs/Data/sum_per_ward1.csv")
+sum_per_year <- read.csv("~/Toronto_Fires/outputs/Data/sum_per_year1.csv")
 
 ```
 
@@ -38,7 +38,7 @@ This paper will test the hypothesis that lower income areas have more dire outco
 
 ## Data
 
-Data are from the OpenData Toronto portal through the library `opendatatoronto` [@citeODT]. Data were cleaned and analyzed using the open source statistical programming language R [@citeR]. Libraries `tidyverse` [@CiteTD], `janitor` [@Citejan], `knitr` [@knitr], `dplyr` [@citedplyr], and `lubridate` [@Citelub] were used for simulating, cleaning, running tests and creating graphics for the project. Graphs were made using `ggplot2` [@citeGG]
+Data are from the OpenData Toronto portal through the library `opendatatoronto` [@citeODT]. Data were cleaned and analyzed using the open source statistical programming language R [@citeR]. Libraries `tidyverse` [@CiteTD], `janitor` [@Citejan], `knitr` [@knitr], `dplyr` [@citedplyr], and `lubridate` [@Citelub] were used for simulating, cleaning, running tests and creating graphics for the project. Graphs were made using `ggplot2` [@citeGG].
 
 ### Fire Incidents data
 
@@ -60,7 +60,7 @@ The data for median income of each ward was collected from ward profiles based o
 
 ### Fire incidents by year
 
-There were, on average nearly 3,500 fires incidents per year from 2018 to 2022. The most fire incidents occurred in 2022, followed closely by 2020 [@fig-1]. The year with the fewest incidents was 2019, with just less than 3,000. 
+There were, on average nearly 3,500 fires incidents per year from 2018 to 2022. The most fire incidents occurred in 2022, followed closely by 2020 (@fig-1). The year with the fewest incidents was 2019, with just less than 3,000. 
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
 #| label: fig-1
@@ -71,12 +71,12 @@ cleaned_fire_data |>
   ggplot(aes(x = year)) +
   geom_bar() +
   theme_minimal() + 
-  labs(title = "Fire incidents in Toronto, 2018-2022",
+  labs(title = "Fire incidents in Toronto by year",
        x = "Year", y = "Fires"
        ) 
 ```
 
-Despite the higher number of fires in 2022 and 2020, the greatest number of civilian deaths from fires happened in 2018 [@fig-2]
+Despite the higher number of fires in 2022 and 2020, the greatest number of civilian deaths from fires happened in 2018 (@fig-2).
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
 #| label: fig-2
@@ -84,32 +84,32 @@ Despite the higher number of fires in 2022 and 2020, the greatest number of civi
 #| warning: false
 ggplot(sum_per_year, aes(x = factor(year), y = deaths)) +
   geom_bar(stat = "identity") +
-  labs(title = "Civilian casualties in fire incidents by year",
+  labs(title = "Civilian casualties from fires by year",
        x = "Year",
-       y = "Total Civilian Casualties") +
+       y = "Civilian casualties") +
   theme_minimal()
 ```
 
 ### Fire incidents by ward
 
-Ward 13, Toronto Centre had the greatest number of fire incidents from 2018 to 2022. Ward 22, Scarborough Agincourt had the fewest fires [@fig-3].
+Ward 13, Toronto Centre had the greatest number of fire incidents from 2018 to 2022. Ward 22, Scarborough Agincourt had the fewest fires (@fig-3).
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
 #| label: fig-3
-#| fig-cap: "Number of fire incidents by ward, 2018-2022" 
+#| fig-cap: "Number of fire incidents in each ward, 2018-2022" 
 #| warning: false
   ggplot(cleaned_fire_data, aes(x = factor(ward))) +
   geom_bar() +
   theme_minimal() +
-  labs(title = "Number of fire incidents per ward, 2018-2022", 
+  labs(title = "Fire incidents by ward", 
        x = "Ward", y = "Fire incidents")
 ```
 
-Ward 13 also saw the most civilians die from fires, while Ward 23, Scarborough North had the fewest fire-related civilian casualties [@fig-4].
+Ward 13 also saw the most civilians die from fires, while Ward 23, Scarborough North had the fewest fire-related civilian casualties (@fig-4).
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
 #| label: fig-4
-#| fig-cap: "Number of civilian casualties from fire incidents by ward, 2018-2022" 
+#| fig-cap: "Number of civilian casualties from fire incidents in each ward, 2018-2022" 
 #| warning: false
 ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
   geom_bar(stat = "identity") +
@@ -121,11 +121,11 @@ ggplot(sum_per_ward, aes(x = factor(ward), y = total_casualties)) +
 
 ### Fire incidents relationship to income
 
-There appeared to be a negative relationship between median income in a ward and the number of civilian casualties from fires in Toronto. The higher the median income of a ward, the fewer civilian deaths occurred in that ward [@fig-5].
+There appeared to be a negative relationship between median income in a ward and the number of civilian casualties from fires in Toronto. The higher the median income of a ward, the fewer civilian deaths occurred in that ward (@fig-5).
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
 #| label: fig-5
-#| fig-cap: "Number of civilian casualties from fires by median income of ward" 
+#| fig-cap: "Number of civilian casualties from fires in each ward by median income of the ward" 
 #| warning: false
 #| 
 merged_ward_fires <- merged_ward_fires |>
@@ -140,9 +140,9 @@ merged_ward_fires |>
   ggplot(mapping = aes(x = median_income, y = total_casualties, color = ward)) +
   geom_point() +
  # geom_smooth(method = lm, color = "black", se = FALSE) +
-  labs(title = "Civilian deaths from fires by ward income",
+  labs(title = "Civilian casualties from fires by ward median income",
        x = "Median ward income (2020)",
-       y = "Civilian fire deaths") +
+       y = "Civilian casualties") +
   theme_minimal() +
 #this section was taken from ChatGPT to ensure the x-axis values were shown in full vs mathematical notation. I tried code from various places, including http://www.sthda.com/english/wiki/ggplot2-axis-scales-and-transformations#format-axis-tick-mark-labels-1 and from previous student work, but wasn't able to come up with a way to display the income numbers properly without LLM help.
   scale_x_continuous(breaks = seq(min(merged_ward_fires$median_income, na.rm = TRUE),
