@@ -1,5 +1,5 @@
 ---
-title: "More Civilian Deaths from Fires Linked to Lower Incomes in Toronto Wards^[Code and data is available at: github.com/CarlyPenrose/Toronto_Fires]"
+title: "More Civilian Deaths from Fires Linked to Lower Incomes in Toronto Wards^[Code and data is available at: https://github.com/CarlyPenrose/Toronto_Fires]"
 author: "Carly Penrose"
 date: today
 date-format: long
@@ -167,7 +167,7 @@ It is also possible that other factors, like TFS response time are correlated to
 These findings could help inform policy outside of just fire prevention education. If further research supports this finding, it could inform public safety steps local governments could take including more routine and widespread fire safety inspections in low-income areas. This could ensure people in lower income areas have the same protections and access to quick TFS services, which in turn could save lives. 
 
 ### Limitations 
-Importantly, the TFS data should be verified for accuracy. According to the TFS fire incident data used, 173 people died from fires in 2018. However, according some Statistics Canada reports, only 161 people died from fires across the country. While the TFS data is not limited just to house fires but includes all incidents for which TFS was called, which could explain some of the discrepancy, it would be important to compare the data collection methods for the TFS to the methods used by Statistics Canada to ensure the data are compiled correctly. 
+Importantly, the TFS data should be verified for accuracy. According to the TFS fire incident data used, 173 people died from fires in 2018. However, according some Statistics Canada reports, only 161 people died from fires across the country. It would be important to compare the data collection methods for the TFS to the methods used by Statistics Canada to ensure the data are compiled correctly. 
 
 The TFS data were incomplete. Data for 144 incidents had to be excluded from the analysis because they did not include the ward in which the incident took place. However, these data would have been unlikely to change the outcome of the analysis, as according to the Ontario Fire Marshall, incidents with incomplete data may be under investigation or classified as a "no loss outdoor fire," which would have resulted in no civilian casualties.
 
