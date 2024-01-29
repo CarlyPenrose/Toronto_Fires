@@ -2,7 +2,7 @@
 title: "More Civilian Deaths from Fires Linked to Lower Incomes in Toronto Wards^[Code and data is available at: github.com/CarlyPenrose/Toronto_Fires]"
 author: "Carly Penrose"
 date: today
-date format: long
+date-format: long
 abstract: "Fires can be devastating, and hunderds of Canadians die from fires each year, and some research suggests lower-income areas experience more deadly outcomes. Using Toronto Fire Service data from OpenData Toronto and Toronto ward profiles, this paper found Toronto Centre is the ward in which the most civilian deaths from fires took place. There also appears to be a negative relationship between the median income of a ward and the number of civilian deaths from fires, with more people dying from fires in lower income wards."
 format: pdf
 bibliography: ref.bib
