@@ -9,7 +9,7 @@
 #### Read in the data ####
 cleaned_fire_data <-
   read_csv(
-    file = "cleaned_fire_data.csv",
+    file = "~/Toronto_Fires/outputs/cleaned_fire_data.csv",
     show_col_types = FALSE
   )
 
@@ -46,7 +46,7 @@ print(sum_per_year)
 # creates a csv file of this data
 write_csv(
   x = sum_per_year,
-  file = "sum_per_year.csv"
+  file = "~/Toronto_Fires/outputs/sum_per_year.csv"
 )
 
 # Calculate the sum of civilian casualties in each ward
@@ -60,9 +60,8 @@ head(sum_per_ward)
 # creates a csv file of ward data
 write_csv(
   x = sum_per_ward,
-  file = "sum_per_ward.csv"
+  file = "~/Toronto_Fires/outputs/sum_per_ward.csv"
 )
-
 
 #create a graph of the number of fire incidents per ward 
 

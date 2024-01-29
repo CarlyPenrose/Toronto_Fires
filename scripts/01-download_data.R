@@ -24,7 +24,7 @@ toronto_fires <-
 
 write_csv(
   x = toronto_fires,
-  file = "toronto_fires.csv"
+  file = "~/Toronto_Fires/inputs/toronto_fires.csv"
 )
 
 head(toronto_fires)
@@ -46,6 +46,6 @@ wards_2021 <- ward_profiles[["2021 One Variable"]]
 #https://github.com/christina-wei/INF3104-1-Covid-Clinics/blob/main/scripts/00-download_data.R
 write_csv(
   x = as.data.frame(wards_2021),
-  file = "2021_ward_profiles.csv"
+  file = "~/Toronto_Fires/inputs/2021_ward_profiles.csv"
 )
 
