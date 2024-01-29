@@ -139,9 +139,10 @@ merged_ward_fires <- merged_ward_fires |>
 merged_ward_fires |>
   ggplot(mapping = aes(x = median_income, y = total_casualties, color = ward)) +
   geom_point() +
+  scale_color_discrete()+
  # geom_smooth(method = lm, color = "black", se = FALSE) +
  # code to show labels on the plot points referenced from https://github.com/InessaDeAngelis/Toronto_Elections/blob/main/outputs/paper/toronto_elections_paper.qmd 
-  geom_text(aes(label = ward), vjust = -0.8, hjust = 0.8) +  
+  geom_text(aes(label = ward), vjust = -0.6, hjust = 0.75, size = 2) +  
   labs(title = "Civilian casualties from fires by ward income",
        x = "Median ward income (2020)",
        y = "Civilian casualties") +
