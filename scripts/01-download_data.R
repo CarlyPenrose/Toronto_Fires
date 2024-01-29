@@ -29,13 +29,7 @@ write_csv(
 
 head(toronto_fires)
 
-#### Acquire the data for ward profiles to isolate income ####
-
-
 #### Acquire the data for ward profiles ####
-#the data is only available on OpenData Toronto in xlsx form, so had to install and load new libraries
-library(readxl)
-library(writexl)
 
 # get package
 library(dplyr)
