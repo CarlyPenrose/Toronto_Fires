@@ -58,10 +58,7 @@ cleaned_fire_data <-
   filter(cleaned_fire_data, year >= 2018)
 
 #change the ward number to a factor instead of an integer
-cleaned_fire_data <-cleaned_fire_data |>
-  mutate(
-    ward = as.factor(ward)
-  ) 
+cleaned_fire_data <-cleaned_fire_data
 
 #re-check the tests to see if the filter worked 
 cleaned_fire_data$ward |> min() == 1
@@ -78,24 +75,18 @@ cleaned_fire_data <-
 #save the cleaned data as a new file
 write_csv(
   x = cleaned_fire_data,
-  file = "cleaned_fire_data.csv"
+  file = "~/Toronto_Fires/outputs/cleaned_fire_data.csv"
 )
 
 # reading in the ward file.
 ward_profiles_2021 <- 
   read_csv(
-  file = "2021_ward_profiles.csv",
+  file = "~/Toronto_Fires/inputs/2021_ward_profiles.csv",
   show_col_types = FALSE)
-
-ward_profiles_2021
-
-nrow(ward_profiles_2021)
 
 #the data I want is on row 1385. Slicing that and the row above it, which has the ward name. Taken from 
 # the tidyverse github account https://dplyr.tidyverse.org/reference/slice.html  
 ward_income <- ward_profiles_2021 |> slice(1384)
-
-ward_income
 
 #skip the first two rows, which are just the title and the median for the City of Toronto overall
 
@@ -141,6 +132,6 @@ merged_ward_fires <- merged_ward_fires |>
 #create a new csv file for the merged ward info and fires  
 write_csv(
   x = merged_ward_fires,
-  file = "merged_ward_fires.csv"
+  file = "~/Toronto_Fires/outputs/merged_ward_fires.csv"
 )
 
