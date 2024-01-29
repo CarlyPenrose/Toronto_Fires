@@ -19,10 +19,10 @@ library(opendatatoronto)
 library(scales)
 
 #load the data
-cleaned_fire_data <- read.csv("~/Toronto_Fires/outputs/Data/cleaned_fire_data1.csv")
-merged_ward_fires <- read.csv("~/Toronto_Fires/outputs/Data/merged_ward_fires1.csv")
-sum_per_ward <- read.csv("~/Toronto_Fires/outputs/Data/sum_per_ward1.csv")
-sum_per_year <- read.csv("~/Toronto_Fires/outputs/Data/sum_per_year1.csv")
+cleaned_fire_data <- read.csv("~/Toronto_Fires/outputs/Data/cleaned_fire_data.csv")
+merged_ward_fires <- read.csv("~/Toronto_Fires/outputs/Data/merged_ward_fires.csv")
+sum_per_ward <- read.csv("~/Toronto_Fires/outputs/Data/sum_per_ward.csv")
+sum_per_year <- read.csv("~/Toronto_Fires/outputs/Data/sum_per_year.csv")
 
 ```
 

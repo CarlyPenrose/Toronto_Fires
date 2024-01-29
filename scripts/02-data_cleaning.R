@@ -75,7 +75,7 @@ cleaned_fire_data <-
 #save the cleaned data as a new file
 write_csv(
   x = cleaned_fire_data,
-  file = "~/Toronto_Fires/outputs/cleaned_fire_data.csv"
+  file = "~/Toronto_Fires/outputs/Data/cleaned_fire_data.csv"
 )
 
 # reading in the ward file.
@@ -90,7 +90,7 @@ ward_income <- ward_profiles_2021 |> slice(1384)
 
 #skip the first two rows, which are just the title and the median for the City of Toronto overall
 
-median_ward_income <- median_ward_income[-(1:2)]
+median_ward_income <- ward_income[-(1:2)]
 
 #I knew to transpose the data, but when trying the function it would always turn into a list. I 
 #used ChatGPT for the t(x) transpose function to keep it as a dataframe and to restart the index.
@@ -132,6 +132,6 @@ merged_ward_fires <- merged_ward_fires |>
 #create a new csv file for the merged ward info and fires  
 write_csv(
   x = merged_ward_fires,
-  file = "~/Toronto_Fires/outputs/merged_ward_fires.csv"
+  file = "~/Toronto_Fires/outputs/Data/merged_ward_fires.csv"
 )
 
